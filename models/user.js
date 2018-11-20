@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
         email: DataTypes.STRING,
     }, {});
     User.associate = function (models) {
-        User.hasOne(models.Schools);
+        User.belongsTo(models.Schools);
+        User.belongsTo(models.Roles);
     };
     return User;
 };

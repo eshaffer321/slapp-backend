@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     message: DataTypes.TEXT
   }, {});
   Announcement.associate = function(models) {
-    // associations can be defined here
+      Announcement.belongsTo(models.Users);
+      Announcement.belongsTo(models.Schools);
   };
   return Announcement;
 };
