@@ -11,6 +11,20 @@ module.exports = {
             message: {
                 type: Sequelize.TEXT
             },
+            userId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'Users',
+                    key: 'id'
+                }
+            },
+            schoolId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'Schools',
+                    key: 'id'
+                }
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
