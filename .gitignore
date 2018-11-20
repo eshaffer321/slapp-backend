@@ -1,0 +1,4 @@
+node_modules/*
+.idea/*
+data.properties
+config/keys.js

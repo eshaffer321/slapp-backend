@@ -1,0 +1,31 @@
+{
+  "name": "slappback",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eshaffer321/slapp-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eshaffer321/slapp-backend/issues"
+  },
+  "homepage": "https://github.com/eshaffer321/slapp-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "google-auth-library": "^1.6.1",
+    "google-sign-in": "^3.0.3",
+    "googleapis": "^35.0.0",
+    "nodemon": "^1.18.6",
+    "nunjucks": "^3.1.4",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0"
+  }
+}
