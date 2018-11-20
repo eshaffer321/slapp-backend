@@ -18,21 +18,23 @@ module.exports = {
                     key: 'id'
                 }
             },
-            schoolId: {
-                type: Sequelize.INTEGER,
-                references: {
-                    model: 'Schools',
-                    key: 'id'
-                },
+            googleToken: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            cookie: {
+                type: Sequelize.STRING,
+                allowNull: false
             },
             createdAt: {
                 allowNull: false,
-                type: Sequelize.DATE
+                type: Sequelize.DATE,
             },
             updatedAt: {
-                allowNull: false,
-                type: Sequelize.DATE
-            },
+                allowNull: true,
+                type: Sequelize.DATE,
+                defaultValue: null
+            }
         });
     },
     down: (queryInterface, Sequelize) => {
