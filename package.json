@@ -1,0 +1,26 @@
+{
+  "name": "slapp-backend",
+  "version": "1.0.0",
+  "description": "The backend for WUSD iOS app.",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql2": "^1.6.4",
+    "nodemon": "^1.18.6",
+    "sequelize": "^4.41.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eshaffer321/slapp-backend.git"
+  },
+  "author": "Erick Shaffer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eshaffer321/slapp-backend/issues"
+  },
+  "homepage": "https://github.com/eshaffer321/slapp-backend#readme"
+}
