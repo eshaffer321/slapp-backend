@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {});
   UserSchool.associate = function(models) {
-    // associations can be defined here
+      UserSchool.belongsTo(models.School);
+      UserSchool.belongsTo(models.User);
   };
   return UserSchool;
 };

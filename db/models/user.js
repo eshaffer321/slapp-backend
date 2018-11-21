@@ -6,8 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         cookie: DataTypes.STRING
     }, {});
     User.associate = function (models) {
-        User.belongsToMany(models.Schools, {through: 'UserSchool'});
-        User.belongsTo(models.Roles);
+        User.belongsTo(models.Role);
     };
     return User;
 };

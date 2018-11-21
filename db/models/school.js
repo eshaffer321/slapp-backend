@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
         token: DataTypes.STRING,
     }, {});
     School.associate = function (models) {
-        // associations can be defined here
     };
     return School;
 };

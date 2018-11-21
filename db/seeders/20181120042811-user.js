@@ -8,13 +8,6 @@ module.exports = {
             );
         const roles = roleRowObject[0];
 
-
-        const schoolRowObject = await
-            queryInterface.sequelize.query(
-                "SELECT id from `Schools`;"
-            );
-        const schools = schoolRowObject[0];
-
         return queryInterface.bulkInsert('Users',
             [{
                 email: 'joe@wusd.edu',
