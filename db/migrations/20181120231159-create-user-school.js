@@ -16,13 +16,14 @@ module.exports = {
                     key: 'id',
                 }
             },
-            createdAt: {
+            created_at: {
                 allowNull: false,
                 type: sequelize.DATE
             },
-            updatedAt: {
-                allowNull: false,
-                type: sequelize.DATE
+            updated_at: {
+                allowNull: true,
+                type: sequelize.DATE,
+                defaultValue: null
             }
         });
     },

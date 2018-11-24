@@ -14,17 +14,17 @@ module.exports = {
             district: {
                 type: Sequelize.STRING
             },
-            schoolName: {
+            school_name: {
                 type: Sequelize.STRING
             },
             token: {
                 type: Sequelize.STRING
             },
-            createdAt: {
+            created_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
             },
-            updatedAt: {
+            updated_at: {
                 allowNull: true,
                 type: Sequelize.DATE,
                 defaultValue: null

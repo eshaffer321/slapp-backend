@@ -17,14 +17,12 @@ module.exports = {
 
         return queryInterface.bulkInsert('UserSchools', [{
             school_id: schools[0].id,
-            user_id: users[0].id,
-            createdAt: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
-            updatedAt: Sequelize.literal('CURRENT_TIMESTAMP(3)')
+            user_id: users[2].id,
+            created_at: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
         }, {
             school_id: schools[1].id,
-            user_id: users[0].id,
-            createdAt: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
-            updatedAt: Sequelize.literal('CURRENT_TIMESTAMP(3)')
+            user_id: users[2].id,
+            created_at: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
         }], {});
     },
 

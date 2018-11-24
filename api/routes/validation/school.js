@@ -13,13 +13,13 @@ schools.create = {
 
 schools.update = {
     body: {
-        schoolId: Joi.number().required(),
+        school_id: Joi.number().required(),
     }
 };
 
 schools.delete = {
     body: {
-        schoolId: Joi.number().required(),
+        school_id: Joi.number().required(),
     }
 };
 

@@ -11,13 +11,14 @@ module.exports = {
             role: {
                 type: Sequelize.STRING
             },
-            createdAt: {
+            created_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
             },
-            updatedAt: {
-                allowNull: false,
+            updated_at: {
+                allowNull: true,
                 type: Sequelize.DATE,
+                defaultValue: null
             }
         });
     },

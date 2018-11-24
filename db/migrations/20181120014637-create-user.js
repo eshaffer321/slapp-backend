@@ -8,17 +8,23 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            first_name: {
+                type: Sequelize.STRING
+            },
+            last_name: {
+                type: Sequelize.STRING
+            },
             email: {
                 type: Sequelize.STRING
             },
-            roleId: {
+            role_id: {
                 type: Sequelize.INTEGER,
                 references: {
                     model: 'Roles',
                     key: 'id'
                 }
             },
-            googleToken: {
+            google_token: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
@@ -26,11 +32,11 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            createdAt: {
+            created_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
             },
-            updatedAt: {
+            updated_at: {
                 allowNull: true,
                 type: Sequelize.DATE,
                 defaultValue: null

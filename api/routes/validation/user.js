@@ -1,31 +1,34 @@
 const Joi = require('joi');
+const db = require('../../../db/models/index');
 
 const user = {};
 
 user.create = {
     body: {
+        first_name: Joi.string().required(),
+        last_name: Joi.string().required(),
         email: Joi.string().email().required(),
-        schoolId: Joi.number().required(),
-        roleId: Joi.string().required(),
-        googleToken: Joi.string().required()
+        school_id: Joi.number().required(),
+        role_id: Joi.string().required(),
+        google_token: Joi.string().required()
     }
 };
 
 user.update = {
     body: {
-        userId: Joi.number().required()
+        user_id: Joi.number().required()
     }
 };
 
 user.delete = {
     body: {
-        userId: Joi.number().required()
+        user_id: Joi.number().required()
     }
 };
 
 user.token = {
     body: {
-        userId: Joi.number().required()
+        user_id: Joi.number().required()
     }
 };
 

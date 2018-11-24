@@ -3,8 +3,8 @@ const router = express.Router();
 
 const validate = require('express-validation');
 const userValidation = require('./validation/user.js');
-const announcementValidation = require('./validation/user.js');
-const schoolValidation = require('./validation/user.js');
+const announcementValidation = require('./validation/announcement.js');
+const schoolValidation = require('./validation/school.js');
 
 const announcementController = require('../controllers/AnnouncementController');
 const schoolController = require('../controllers/SchoolController');
@@ -26,9 +26,9 @@ router.post('/announcement/update', validate(announcementValidation.update), ann
 
 router.post('/announcement/delete', validate(announcementValidation.delete), announcementController.announcement_delete_post);
 
-router.get('/announcement/latest', validate(announcementValidation.latest), announcementController.announcement_latest_get);
+router.post('/announcement/latest', validate(announcementValidation.latest), announcementController.announcement_latest_post);
 
-router.get('/announcement/all', validate(announcementValidation.latest), announcementController.announcement_all_get);
+router.post('/announcement/all', validate(announcementValidation.latest), announcementController.announcement_all_post);
 
 router.post('/school/create', validate(schoolValidation.create), schoolController.school_create_post);
 

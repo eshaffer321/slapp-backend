@@ -14,17 +14,20 @@ module.exports = {
 
         return queryInterface.bulkInsert('Announcements',
             [{
-                message: 'Schools out for summer.',
-                schoolId: schools[0].id,
-                userId: users[0].id,
-                createdAt: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
-                updatedAt: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
+                message: 'This is a message from San Benecio.',
+                school_id: schools[0].id,
+                user_id: users[0].id,
+                created_at: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
             }, {
                 message: 'School will be shutdown while joe is in Cancun.',
-                schoolId: schools[0].id,
-                userId: users[0].id,
-                createdAt: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
-                updatedAt: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
+                school_id: schools[0].id,
+                user_id: users[0].id,
+                created_at: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
+            }, {
+                message: 'This is a message from Toro Park.',
+                school_id: schools[1].id,
+                user_id: users[1].id,
+                created_at: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
             }], {});
     },
 

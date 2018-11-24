@@ -1,30 +1,34 @@
 var Joi = require('joi');
+const db = require('../../../db/models/index');
 
 const announcement = {};
 
 announcement.create = {
     body: {
         message: Joi.string().required(),
-        schoolId: Joi.number().required(),
-        userId: Joi.number().required(),
+        school_id: Joi.number().required(),
+        user_id: Joi.number().required(),
     }
 };
 
 announcement.update = {
     body: {
-        announcementId: Joi.number().required(),
+        announcement_id: Joi.number().required(),
+        user_id: Joi.number().required(),
+        message: Joi.string().required()
     }
 };
 
 announcement.delete = {
     body: {
-        announcementId: Joi.number().required(),
+        announcement_id: Joi.number().required(),
+        user_id: Joi.number().required(),
     }
 };
 
 announcement.latest = {
     body: {
-        userId: Joi.number().required(),
+        user_id: Joi.number().required(),
     }
 };
 
