@@ -25,8 +25,9 @@ exports.announcement_update_post = function (req, res) {
             message: req.body.message
         }).catch(function(err) {
             res.send('Something went wrong...' + err);
+            res.status(400);
         });
-        res.status(400);
+        res.status(200);
         res.send('Successfully updated announcement.');
     }).catch(function (err) {
         res.send('Something went wrong...' + err);

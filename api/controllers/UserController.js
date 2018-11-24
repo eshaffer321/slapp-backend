@@ -1,7 +1,9 @@
 const db = require('../../db/models/index');
 
 exports.user_smoke_test_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: ');
+    db.User.findAll({}).then(user => {
+        res.json(user[0]);
+    });
 };
 
 exports.user_create_post = function(req, res) {
@@ -20,13 +22,40 @@ exports.user_create_post = function(req, res) {
 };
 
 exports.user_update_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: ');
+    db.User.findOne({
+        where: {
+            id: req.body.user_id
+        }
+    }).then(user => {
+        console.log(req.body.first_name);
+        user.update({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            google_token: req.body.google_token,
+            cookie: req.body.cookie
+        }).catch(function(err) {
+            res.status(400);
+            res.send('Something went wrong...' + err);
+        });
+        res.status(200);
+        res.send('Successfully updated user.');
+    }).catch(function (err) {
+        res.send('Something went wrong...' + err);
+    });
 };
 
 exports.user_token_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: Book detail: ' + req.params.id);
+    // TODO: implement
 };
 
 exports.user_delete_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: Book detail: ' + req.params.id);
+    db.User.destroy({
+        where: {user_id: req.body.user_id}
+    }).then(user => {
+        res.send('Successfully deleted user.');
+    }).catch(function (err) {
+        res.status(400);
+        res.send('Something went wrong... ' + err);
+    });
 };

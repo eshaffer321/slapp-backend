@@ -4,7 +4,7 @@ const schools = {};
 
 schools.create = {
     body: {
-        name: Joi.string().required(),
+        school_name: Joi.string().required(),
         district: Joi.string().required(),
         hostname: Joi.string().required(),
         token: Joi.string().required()

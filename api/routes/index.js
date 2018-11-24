@@ -18,7 +18,7 @@ router.post('/user/update', validate(userValidation.update), userController.user
 
 router.post('/user/delete', validate(userValidation.delete), userController.user_create_post);
 
-router.post('/user/token', validate(userValidation.token), userController.user_create_post);
+router.get('/user/token', validate(userValidation.token), userController.user_create_post);
 
 router.post('/announcement/create', validate(announcementValidation.create), announcementController.announcement_create_post);
 

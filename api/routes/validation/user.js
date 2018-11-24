@@ -9,14 +9,20 @@ user.create = {
         last_name: Joi.string().required(),
         email: Joi.string().email().required(),
         school_id: Joi.number().required(),
-        role_id: Joi.string().required(),
+        role_id: Joi.number().required(),
         google_token: Joi.string().required()
     }
 };
 
 user.update = {
     body: {
-        user_id: Joi.number().required()
+        user_id: Joi.number().required(),
+        first_name: Joi.string(),
+        last_name: Joi.string(),
+        email: Joi.string().email(),
+        school_id: Joi.number(),
+        role_id: Joi.number(),
+        google_token: Joi.string()
     }
 };
 
