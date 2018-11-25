@@ -3,6 +3,12 @@ const db = require('../../../db/models/index');
 
 const user = {};
 
+user.get = {
+    body: {
+        user_id: Joi.string().valid(Joi.ref('$req.params.user_id')).required()
+    },
+};
+
 user.create = {
     body: {
         first_name: Joi.string().required(),
@@ -32,12 +38,6 @@ user.delete = {
 };
 
 user.token = {
-    body: {
-        user_id: Joi.number().required()
-    }
-};
-
-user.get = {
     body: {
         user_id: Joi.number().required()
     }

@@ -1,7 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     const Announcement = sequelize.define('Announcement', {
-        message: DataTypes.TEXT
+        message: DataTypes.TEXT,
+        pinned: DataTypes.BOOLEAN
     }, {
         timestamps: true,
         underscored: true,

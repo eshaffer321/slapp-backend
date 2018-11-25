@@ -1,6 +1,92 @@
 const db = require('../../db/models/index');
 
-// TODO: add authentication
+exports.announcement_pinned_get = function (req, res) {
+    db.User.count({where: {id: req.query.user_id}}).then(count => {
+        if (count === 0) {
+            res.status(400);
+            res.send('User not found');
+        }
+        db.UserSchool.count({where: {user_id: req.query.user_id}}).then(count => {
+            if (count === 0) {
+                res.status(400);
+                res.send('No schools associated with that user');
+            }
+        });
+    }).catch(function (err) {
+        res.send('Something went wrong...' + err);
+    });
+
+    db.User.findAll({
+        where: {id: req.query.user_id},
+        include: [
+            {
+                model: db.School,
+                attributes: ['school_name'],
+                through: {attributes: []},
+                include: [{
+                    model: db.Announcement,
+                    attributes: ['message'],
+                    where: {
+                        pinned: true,
+                    },
+                    include: [{
+                        model: db.User,
+                        attributes: ['first_name', 'last_name']
+                    }]
+                }]
+            },
+        ],
+        attributes: ['first_name', 'last_name'],
+    }).then(data => {
+        res.send(data[0]);
+    }).catch(function (err) {
+        res.send('Something went wrong...' + err);
+    });
+};
+
+exports.announcement_all_get = function (req, res) {
+    db.User.count({where: {id: req.query.user_id}}).then(count => {
+        if (count === 0) {
+            res.status(400);
+            res.send('User not found');
+            res.end();
+        }
+        db.UserSchool.count({where: {user_id: req.query.user_id}}).then(count => {
+            if (count === 0) {
+                res.status(400);
+                res.send('No schools associated with that user');
+                res.end();
+            }
+        });
+    }).catch(function (err) {
+        res.send('Something went wrong...' + err);
+    });
+
+    db.User.findAll({
+        where: {id: req.query.user_id},
+        include: [
+            {
+                model: db.School,
+                attributes: ['school_name'],
+                through: {attributes: []},
+                include: [{
+                    model: db.Announcement,
+                    attributes: ['message'],
+                    include: [{
+                        model: db.User,
+                        attributes: ['first_name', 'last_name']
+                    }]
+                }]
+            },
+        ],
+        attributes: ['first_name', 'last_name'],
+    }).then(data => {
+        res.send(data[0]);
+    }).catch(function (err) {
+        res.send('Something went wrong...' + err);
+    });
+};
+
 exports.announcement_create_post = function (req, res) {
     db.Announcement.create({
         message: req.body.message,
@@ -47,59 +133,42 @@ exports.announcement_delete_post = function (req, res) {
     });
 };
 
-exports.announcement_latest_post = function (req, res) {
-    // if (!userValidation.exists(req.body.user_id)) {
-    //     res.status(400);
-    //     res.send('User not found.');
-    // }
-};
-
 exports.announcement_pin_post = function (req, res) {
+    db.Announcement.findOne({
+        where: {
+            id: req.body.announcement_id,
+        }
+    }).then(announcement => {
+        announcement.update({
+            pinned: true
+        }).then(data => {
+            res.send(data);
+        }).catch(function (err) {
+            res.status(400);
+            res.send(err);
+        })
+    }).catch(function (err) {
+        res.status(400);
+        res.send(err);
+    });
 };
 
-/**
- * First validate user exists, then make sure user has a school associated to it.
- * Next return all announcement that a user is associated with
- * @param req
- * @param res
- */
-exports.announcement_all_post = function (req, res) {
-    db.User.count({where: {id: req.body.user_id}}).then(count => {
-        if (count === 0) {
-            res.status(400);
-            res.send('User not found');
+exports.announcement_unpin_post = function (req, res) {
+    db.Announcement.findAll({
+        where: {
+            id: req.body.announcement_id,
         }
-        db.UserSchool.count({where: {user_id: req.body.user_id}}).then(count => {
-            if (count === 0) {
-                res.status(400);
-                res.send('No schools associated with that user');
-            }
-        });
+    }).then(announcement => {
+        announcement.update({
+            pinned: false
+        }).then(data => {
+            res.send(data);
+        }).catch(function (err) {
+            res.status(400);
+            res.send(err);
+        })
     }).catch(function (err) {
-        res.send('Something went wrong...' + err);
-    });
-
-    db.User.findAll({
-        where: {id: req.body.user_id},
-        include: [
-            {
-                model: db.School,
-                attributes: ['school_name'],
-                through: {attributes: []},
-                include: [{
-                    model: db.Announcement,
-                    attributes: ['message'],
-                    include: [{
-                        model: db.User,
-                        attributes: ['first_name', 'last_name']
-                    }]
-                }]
-            },
-        ],
-        attributes: ['first_name', 'last_name'],
-    }).then(data => {
-        res.send(data[0]);
-    }).catch(function (err) {
-        res.send('Something went wrong...' + err);
+        res.status(400);
+        res.send(err);
     });
 };

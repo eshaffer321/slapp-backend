@@ -19,9 +19,7 @@ router.use('/', swaggerUi.serve);
 
 router.get('/', swaggerUi.setup(swaggerDocument));
 
-router.get('/user/:user_id', validate(userValidation.get), userController.user_get);
-
-router.get('/user/smoke', userController.user_smoke_test_get);
+router.get('/user/:user_id', userController.user_get);
 
 router.post('/user/create', validate(userValidation.create), userController.user_create_post);
 
@@ -29,7 +27,9 @@ router.post('/user/update', validate(userValidation.update), userController.user
 
 router.post('/user/delete', validate(userValidation.delete), userController.user_create_post);
 
-router.get('/user/token', validate(userValidation.token), userController.user_create_post);
+router.get('/announcement', announcementController.announcement_pinned_get);
+
+router.get('/announcement/all', announcementController.announcement_all_get);
 
 router.post('/announcement/create', validate(announcementValidation.create), announcementController.announcement_create_post);
 
@@ -37,11 +37,13 @@ router.post('/announcement/update', validate(announcementValidation.update), ann
 
 router.post('/announcement/delete', validate(announcementValidation.delete), announcementController.announcement_delete_post);
 
-router.post('/announcement/latest', validate(announcementValidation.latest), announcementController.announcement_latest_post);
+router.post('/announcement/pin', validate(announcementValidation.pinned), announcementController.announcement_pin_post);
 
-router.post('/announcement/all', validate(announcementValidation.latest), announcementController.announcement_all_post);
+router.post('/announcement/unpin', validate(announcementValidation.pinned), announcementController.announcement_pin_post);
 
-router.post('announcement/pin', validate(announcementValidation.pinned), announcementController.an);
+router.get('/school', schoolController.school_create_post);
+
+router.get('/school/all', schoolController.school_create_post);
 
 router.post('/school/create', validate(schoolValidation.create), schoolController.school_create_post);
 
