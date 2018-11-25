@@ -9,3 +9,4 @@
 * Run `sequelize db:create` to create the database
 * Run `sequelize db:migrate` to create tables
 * Run `sequelize db:seed:all` to fill mock data
+

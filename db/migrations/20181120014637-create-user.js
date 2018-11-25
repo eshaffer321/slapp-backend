@@ -24,11 +24,11 @@ module.exports = {
                     key: 'id'
                 }
             },
-            google_token: {
+            refresh_token: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            cookie: {
+            access_token: {
                 type: Sequelize.STRING,
                 allowNull: false
             },

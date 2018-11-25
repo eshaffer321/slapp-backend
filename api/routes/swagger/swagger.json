@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "description": "Slapp backend database service.",
-    "version": "0.1",
+    "version": "0.3",
     "title": "Slapp database service.",
     "termsOfService": "http://swagger.io/terms/",
     "contact": {
@@ -33,10 +33,36 @@
     }
   ],
   "schemes": [
-    "https",
     "http"
   ],
   "paths": {
+    "/user/{user_id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Return data about user",
+        "description": "",
+        "operationId": "user_get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "type": "integer",
+            "required": true,
+            "description": "A user's id."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/user/create": {
       "post": {
         "tags": [
@@ -78,14 +104,21 @@
             "name": "email",
             "type": "string",
             "required": true,
-            "description": "A user gmail account."
+            "description": "A users gmail account."
           },
           {
             "in": "formData",
-            "name": "google_token",
+            "name": "refresh_token",
             "type": "string",
             "required": true,
-            "description": "A user google_token account."
+            "description": "A user refresh_token for google."
+          },
+          {
+            "in": "formData",
+            "name": "access_token",
+            "type": "string",
+            "required": true,
+            "description": "A user access token for google apis."
           },
           {
             "in": "formData",
@@ -146,10 +179,10 @@
           },
           {
             "in": "formData",
-            "name": "google_token",
+            "name": "refresh_token",
             "type": "string",
             "required": false,
-            "description": "A user google_token account."
+            "description": "A user refresh_token account."
           },
           {
             "in": "formData",
@@ -196,17 +229,14 @@
         }
       }
     },
-    "/user": {
+    "/announcement": {
       "get": {
         "tags": [
-          "user"
+          "announcement"
         ],
-        "summary": "Get user",
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
+        "summary": "Get all pinned announcements for a user",
         "description": "",
-        "operationId": "user_get",
+        "operationId": "announcement_get",
         "produces": [
           "application/json"
         ],
@@ -216,7 +246,34 @@
             "name": "user_id",
             "type": "integer",
             "required": true,
-            "description": "A user's id."
+            "description": "The user id that you want announcements for."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/announcement/all": {
+      "get": {
+        "tags": [
+          "announcement"
+        ],
+        "summary": "Get all announcements for a user",
+        "description": "",
+        "operationId": "announcement_all_get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "user_id",
+            "type": "integer",
+            "required": true,
+            "description": "The user id that you want announcements for."
           }
         ],
         "responses": {
@@ -344,27 +401,27 @@
         }
       }
     },
-    "/announcement/all": {
+    "/announcement/pin": {
       "post": {
         "tags": [
           "announcement"
         ],
-        "summary": "Get all announcements for a user",
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
+        "summary": "Set the status of an announcement to pinned.",
         "description": "",
-        "operationId": "announcement_all_post",
+        "operationId": "announcement_pin_post",
         "produces": [
           "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
         ],
         "parameters": [
           {
             "in": "formData",
-            "name": "user_id",
+            "name": "announcement_id",
             "type": "integer",
             "required": true,
-            "description": "The user id that you want announcements for."
+            "description": "The announcement id."
           }
         ],
         "responses": {
@@ -374,15 +431,39 @@
         }
       }
     },
-    "/school/create": {
+    "/announcement/unpin": {
       "post": {
+        "tags": [
+          "announcement"
+        ],
+        "summary": "Delete announcement",
+        "description": "",
+        "operationId": "announcement_unpin_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "announcement_id",
+            "type": "integer",
+            "required": true,
+            "description": "Set the status of pinned to false for a announcement."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/school/{user_id}": {
+      "get": {
         "tags": [
           "school"
         ],
-        "summary": "Create school",
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
+        "summary": "Find all schools associated with a user",
         "description": "",
         "operationId": "school_create_post",
         "produces": [
@@ -390,8 +471,8 @@
         ],
         "parameters": [
           {
-            "in": "formData",
-            "name": "school_name",
+            "in": "path",
+            "name": "school_id",
             "type": "string",
             "required": true,
             "description": "The name of the school."
@@ -411,6 +492,25 @@
             "description": "The host name of the school."
           }
         ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/school/all": {
+      "get": {
+        "tags": [
+          "school"
+        ],
+        "summary": "Return all schools",
+        "description": "",
+        "operationId": "school_create_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
         "responses": {
           "default": {
             "description": "successful operation"
@@ -549,7 +649,7 @@
         "school_id": {
           "type": "integer"
         },
-        "google_token": {
+        "refresh_token": {
           "type": "string"
         },
         "role_id": {
@@ -567,6 +667,40 @@
           "type": "integer"
         },
         "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UserSchool": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "school_id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "School": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "district": {
+          "type": "string"
+        },
+        "school_name": {
+          "type": "string"
+        },
+        "token": {
           "type": "string"
         }
       }
