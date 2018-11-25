@@ -20,7 +20,6 @@ user.update = {
         first_name: Joi.string(),
         last_name: Joi.string(),
         email: Joi.string().email(),
-        school_id: Joi.number(),
         role_id: Joi.number(),
         google_token: Joi.string()
     }
@@ -33,6 +32,12 @@ user.delete = {
 };
 
 user.token = {
+    body: {
+        user_id: Joi.number().required()
+    }
+};
+
+user.get = {
     body: {
         user_id: Joi.number().required()
     }

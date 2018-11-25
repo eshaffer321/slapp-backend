@@ -4,3 +4,4 @@ data.properties
 npm-debug.log
 .DS_Store
 /*.env
+database.json

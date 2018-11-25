@@ -14,6 +14,9 @@ schools.create = {
 schools.update = {
     body: {
         school_id: Joi.number().required(),
+        school_name: Joi.string(),
+        district: Joi.string(),
+        hostname: Joi.string(),
     }
 };
 

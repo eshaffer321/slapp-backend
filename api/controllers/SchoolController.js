@@ -23,7 +23,7 @@ exports.school_update_post = function(req, res) {
         school.update({
             district: req.body.district,
             school_name: req.body.school_name,
-            hostname:req.body.hostname,
+            hostname: req.body.hostname,
         }).catch(function(err) {
             res.send('Something went wrong...' + err);
             res.status(400);

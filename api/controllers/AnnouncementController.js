@@ -82,6 +82,7 @@ exports.announcement_all_post = function (req, res) {
             {
                 model: db.School,
                 attributes: ['school_name'],
+                through: {attributes: []},
                 include: [{
                     model: db.Announcement,
                     attributes: ['message'],

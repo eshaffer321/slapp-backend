@@ -1,0 +1,613 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Slapp backend database service.",
+    "version": "0.1",
+    "title": "Slapp database service.",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "erick.shaffer321@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user"
+    },
+    {
+      "name": "announcement",
+      "description": "Operations about announcements"
+    },
+    {
+      "name": "school",
+      "description": "Operations about school"
+    },
+    {
+      "name": "userschool",
+      "description": "Operations about user-school association"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/user/create": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "user_create_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "user_id",
+            "type": "integer",
+            "required": true,
+            "description": "A user's id."
+          },
+          {
+            "in": "formData",
+            "name": "first_name",
+            "type": "string",
+            "required": true,
+            "description": "A user first name from google."
+          },
+          {
+            "in": "formData",
+            "name": "last_name",
+            "type": "string",
+            "required": true,
+            "description": "A user last name from google."
+          },
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "required": true,
+            "description": "A user gmail account."
+          },
+          {
+            "in": "formData",
+            "name": "google_token",
+            "type": "string",
+            "required": true,
+            "description": "A user google_token account."
+          },
+          {
+            "in": "formData",
+            "name": "role_id",
+            "type": "integer",
+            "required": true,
+            "description": "Update user role (may need to deprecate)."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/update": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "operationId": "user_update_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "user_id",
+            "type": "integer",
+            "required": true,
+            "description": "A user's id."
+          },
+          {
+            "in": "formData",
+            "name": "first_name",
+            "type": "string",
+            "required": false,
+            "description": "A user first name from google."
+          },
+          {
+            "in": "formData",
+            "name": "last_name",
+            "type": "string",
+            "required": false,
+            "description": "A user last name from google."
+          },
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "required": false,
+            "description": "A user gmail account."
+          },
+          {
+            "in": "formData",
+            "name": "google_token",
+            "type": "string",
+            "required": false,
+            "description": "A user google_token account."
+          },
+          {
+            "in": "formData",
+            "name": "role_id",
+            "type": "integer",
+            "required": false,
+            "description": "Update user role (may need to deprecate)."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/delete": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "user_delete_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "user_id",
+            "type": "integer",
+            "required": true,
+            "description": "A user's id."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "user_get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "user_id",
+            "type": "integer",
+            "required": true,
+            "description": "A user's id."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/announcement/create": {
+      "post": {
+        "tags": [
+          "announcement"
+        ],
+        "summary": "Create announcement",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "announcement_create_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "user_id",
+            "type": "integer",
+            "required": true,
+            "description": "A user's id."
+          },
+          {
+            "in": "formData",
+            "name": "first_name",
+            "type": "integer",
+            "required": true,
+            "description": "School id that the announcement is coming from."
+          },
+          {
+            "in": "formData",
+            "name": "message",
+            "type": "string",
+            "required": true,
+            "description": "The text of the message."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/announcement/update": {
+      "post": {
+        "tags": [
+          "announcement"
+        ],
+        "summary": "Update announcement",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "announcement_update_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "announcement_id",
+            "type": "integer",
+            "required": true,
+            "description": "The announcement id."
+          },
+          {
+            "in": "formData",
+            "name": "school_id",
+            "type": "integer",
+            "required": false,
+            "description": "School id that the announcement is coming from."
+          },
+          {
+            "in": "formData",
+            "name": "message",
+            "type": "string",
+            "required": false,
+            "description": "The updated text of the message."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/announcement/delete": {
+      "post": {
+        "tags": [
+          "announcement"
+        ],
+        "summary": "Delete announcement",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "announcement_delete_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "announcement_id",
+            "type": "integer",
+            "required": true,
+            "description": "The announcement id."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/announcement/all": {
+      "post": {
+        "tags": [
+          "announcement"
+        ],
+        "summary": "Get all announcements for a user",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "announcement_all_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "user_id",
+            "type": "integer",
+            "required": true,
+            "description": "The user id that you want announcements for."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/school/create": {
+      "post": {
+        "tags": [
+          "school"
+        ],
+        "summary": "Create school",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "school_create_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "school_name",
+            "type": "string",
+            "required": true,
+            "description": "The name of the school."
+          },
+          {
+            "in": "formData",
+            "name": "district",
+            "type": "string",
+            "required": true,
+            "description": "The district the school belongs to."
+          },
+          {
+            "in": "formData",
+            "name": "hostname",
+            "type": "string",
+            "required": true,
+            "description": "The host name of the school."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/school/update": {
+      "post": {
+        "tags": [
+          "school"
+        ],
+        "summary": "Update school",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "school_update_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "school_id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "school_name",
+            "type": "string",
+            "required": false,
+            "description": "The name of the school."
+          },
+          {
+            "in": "formData",
+            "name": "district",
+            "type": "string",
+            "required": false,
+            "description": "The district the school belongs to."
+          },
+          {
+            "in": "formData",
+            "name": "hostname",
+            "type": "string",
+            "required": false,
+            "description": "The host name of the school."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/school/delete": {
+      "post": {
+        "tags": [
+          "school"
+        ],
+        "summary": "Delete school",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "school_delete_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "school_id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/userschool/add": {
+      "post": {
+        "tags": [
+          "userschool"
+        ],
+        "summary": "Add a relation between user and school",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "",
+        "operationId": "userschool_add_post",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "school_id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "user_id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "school_id": {
+          "type": "integer"
+        },
+        "google_token": {
+          "type": "string"
+        },
+        "role_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "Announcement": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer"
+        },
+        "school_id": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AnnouncementResponse": {
+      "type": "object",
+      "properties": {
+        "Schools": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "school_name": {
+                "type": "string"
+              },
+              "Announcement": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "User": {
+                      "type": "object",
+                      "properties": {
+                        "first_name": {
+                          "type": "string"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

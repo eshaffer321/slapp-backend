@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3001;
+const sequelize = require('sequelize');
+
 
 const router = require('./api/routes/index');
 const cookieParser = require('cookie-parser');
@@ -12,7 +14,7 @@ app.use(cookieParser());
 app.use('/', router);
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`);
+    console.log(`Listening on port ${port}!`);
 });
 
 app.use(function(err, req, res, next){
