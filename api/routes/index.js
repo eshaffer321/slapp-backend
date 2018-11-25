@@ -41,6 +41,8 @@ router.post('/announcement/latest', validate(announcementValidation.latest), ann
 
 router.post('/announcement/all', validate(announcementValidation.latest), announcementController.announcement_all_post);
 
+router.post('announcement/pin', validate(announcementValidation.pinned), announcementController.an);
+
 router.post('/school/create', validate(schoolValidation.create), schoolController.school_create_post);
 
 router.post('/school/update', validate(schoolValidation.update), schoolController.school_update_post);

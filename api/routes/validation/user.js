@@ -10,7 +10,7 @@ user.create = {
         email: Joi.string().email().required(),
         school_id: Joi.number().required(),
         role_id: Joi.number().required(),
-        google_token: Joi.string().required()
+        refresh_token: Joi.string().required()
     }
 };
 
@@ -21,7 +21,7 @@ user.update = {
         last_name: Joi.string(),
         email: Joi.string().email(),
         role_id: Joi.number(),
-        google_token: Joi.string()
+        refresh_token: Joi.string()
     }
 };
 

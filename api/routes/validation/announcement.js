@@ -32,4 +32,10 @@ announcement.latest = {
     }
 };
 
+announcement.pinned = {
+    body: {
+        announcement_id: Joi.number().required(),
+    }
+};
+
 module.exports = announcement;

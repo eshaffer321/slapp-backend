@@ -54,6 +54,9 @@ exports.announcement_latest_post = function (req, res) {
     // }
 };
 
+exports.announcement_pin_post = function (req, res) {
+};
+
 /**
  * First validate user exists, then make sure user has a school associated to it.
  * Next return all announcement that a user is associated with

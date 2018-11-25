@@ -13,7 +13,7 @@ exports.user_create_post = function(req, res) {
         email: req.body.email,
         role_id: req.body.role,
         school_id: req.body.school_id,
-        google_token: req.body.google_token
+        refresh_token: req.body.refresh_token
     }).then(user => {
         db.UserSchool.create({
             school_id: req.body.school_id,
@@ -40,8 +40,8 @@ exports.user_update_post = function(req, res) {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,
-            google_token: req.body.google_token,
-            cookie: req.body.cookie
+            refresh_token: req.body.refresh_token,
+            access_token: req.body.cookie
         }).catch(function(err) {
             res.status(400);
             res.send('Something went wrong...' + err);

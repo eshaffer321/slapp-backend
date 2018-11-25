@@ -78,14 +78,21 @@
             "name": "email",
             "type": "string",
             "required": true,
-            "description": "A user gmail account."
+            "description": "A users gmail account."
           },
           {
             "in": "formData",
-            "name": "google_token",
+            "name": "refresh_token",
             "type": "string",
             "required": true,
-            "description": "A user google_token account."
+            "description": "A user refresh_token for google."
+          },
+          {
+            "in": "formData",
+            "name": "access_token",
+            "type": "string",
+            "required": true,
+            "description": "A user access token for google apis."
           },
           {
             "in": "formData",
@@ -146,10 +153,10 @@
           },
           {
             "in": "formData",
-            "name": "google_token",
+            "name": "refresh_token",
             "type": "string",
             "required": false,
-            "description": "A user google_token account."
+            "description": "A user refresh_token account."
           },
           {
             "in": "formData",
@@ -549,7 +556,7 @@
         "school_id": {
           "type": "integer"
         },
-        "google_token": {
+        "refresh_token": {
           "type": "string"
         },
         "role_id": {
