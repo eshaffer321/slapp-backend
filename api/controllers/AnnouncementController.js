@@ -2,12 +2,12 @@ const db = require('../../db/models/index');
 const authController = require('../controllers/AuthController');
 
 exports.announcement_pinned_get = function (req, res) {
-    db.User.count({where: {id: req.query.google_id}}).then(count => {
+    db.User.count({where: {id: req.query.email}}).then(count => {
         if (count === 0) {
             res.status(400);
             res.send('User not found');
         }
-        db.UserSchool.count({where: {google_id: req.query.google_id}}).then(count => {
+        db.UserSchool.count({where: {email: req.query.email}}).then(count => {
             if (count === 0) {
                 res.status(400);
                 res.send('No schools associated with that user');
@@ -18,7 +18,7 @@ exports.announcement_pinned_get = function (req, res) {
     });
 
     db.User.findAll({
-        where: {id: req.query.google_id},
+        where: {id: req.query.email},
         include: [
             {
                 model: db.School,
@@ -46,13 +46,13 @@ exports.announcement_pinned_get = function (req, res) {
 };
 
 exports.announcement_all_get = function (req, res) {
-    db.User.count({where: {id: req.query.google_id}}).then(count => {
+    db.User.count({where: {id: req.query.email}}).then(count => {
         if (count === 0) {
             res.status(400);
             res.send('User not found');
             res.end();
         }
-        db.UserSchool.count({where: {google_id: req.query.google_id}}).then(count => {
+        db.UserSchool.count({where: {email: req.query.email}}).then(count => {
             if (count === 0) {
                 res.status(400);
                 res.send('No schools associated with that user');
@@ -64,7 +64,7 @@ exports.announcement_all_get = function (req, res) {
     });
 
     db.User.findAll({
-        where: {id: req.query.google_id},
+        where: {id: req.query.email},
         include: [
             {
                 model: db.School,
@@ -92,7 +92,7 @@ exports.announcement_create_post = function (req, res) {
     console.log('called');
     db.User.count({
         where: {
-           google_id: req.body.google_id
+           email: req.body.email
         }
     }).then(count => {
         console.log(count);
@@ -102,7 +102,7 @@ exports.announcement_create_post = function (req, res) {
         } else {
             db.Announcement.create({
                 message: req.body.message,
-                google_id: req.body.google_id,
+                email: req.body.email,
                 school_id: req.body.school_id,
                 updated_at: null
             }).then(announcement => {

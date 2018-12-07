@@ -5,7 +5,7 @@ const userchool = {};
 
 userchool.add = {
     body: {
-        user_id: Joi.number().required(),
+        email: Joi.number().required(),
         school_id: Joi.number().required(),
     }
 };

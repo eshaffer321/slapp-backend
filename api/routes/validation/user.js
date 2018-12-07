@@ -21,7 +21,6 @@ user.create = {
 
 user.update = {
     body: {
-        google_id: Joi.number().required(),
         first_name: Joi.string(),
         last_name: Joi.string(),
         email: Joi.string().email().required(),

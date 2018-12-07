@@ -4,7 +4,6 @@ module.exports = (sequelize, DataTypes) => {
         first_name: DataTypes.STRING,
         last_name: DataTypes.STRING,
         email: DataTypes.STRING,
-        google_id: DataTypes.STRING,
         role_token: DataTypes.STRING
     }, {
         timestamps: true,

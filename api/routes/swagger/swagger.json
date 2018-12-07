@@ -288,7 +288,7 @@
         "parameters": [
           {
             "in": "query",
-            "name": "google_id",
+            "name": "email",
             "type": "string",
             "required": true,
             "description": "The user id that you want announcements for."
@@ -638,7 +638,7 @@
           },
           {
             "in": "formData",
-            "name": "google_id",
+            "name": "email",
             "type": "string",
             "required": true
           }
@@ -678,7 +678,7 @@
     "Announcement": {
       "type": "object",
       "properties": {
-        "google_id": {
+        "email": {
           "type": "string"
         },
         "school_id": {
@@ -698,7 +698,7 @@
         "school_id": {
           "type": "integer"
         },
-        "google_id": {
+        "email": {
           "type": "string"
         }
       }

@@ -22,7 +22,7 @@ function isAdmin() {
     return function(req, res, next) {
         db.User.findOne({
             where: {
-                google_id: req.body.google_id
+                email: req.body.email
             }
         }).then(user => {
             db.Role.findOne({

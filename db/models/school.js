@@ -11,6 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         updatedAt: 'updated_at',
         createdAt: 'created_at'
     });
-
+    School.associate = function (models) {};
     return School;
 };
