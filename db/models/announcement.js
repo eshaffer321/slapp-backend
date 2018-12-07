@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
         createdAt: 'created_at',
     });
     Announcement.associate = function (models) {
-        Announcement.belongsTo(models.User);
+        Announcement.belongsTo(models.User, {
+            targetKey: 'google_id'
+        });
         Announcement.hasOne(models.School);
     };
     return Announcement;

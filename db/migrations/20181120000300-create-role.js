@@ -9,6 +9,11 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
             role: {
+                allowNull: false,
+                type: Sequelize.STRING
+            },
+            role_token: {
+                allowNull: false,
                 type: Sequelize.STRING
             },
             created_at: {

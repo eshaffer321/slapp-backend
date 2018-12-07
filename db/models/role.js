@@ -1,9 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     const Role = sequelize.define('Role', {
-            role: DataTypes.STRING,
-            first_name: DataTypes.STRING,
-            last_name: DataTypes.STRING
+            role_token: DataTypes.STRING,
+            role: DataTypes.STRING
         },
         {
             timestamps: true,
@@ -12,8 +11,6 @@ module.exports = (sequelize, DataTypes) => {
             createdAt: 'created_at'
         }
     );
-    Role.associate = function (models) {
-        // associations can be defined here
-    };
+    Role.associate = function (models) {};
     return Role;
 };

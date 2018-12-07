@@ -4,35 +4,34 @@ module.exports = {
 
         const roleRowObject = await
             queryInterface.sequelize.query(
-                "SELECT id from `Roles`;"
+                "SELECT role_token from `Roles`;"
             );
         const roles = roleRowObject[0];
+
+        console.log(roles[0].role_token);
 
         return queryInterface.bulkInsert('Users',
             [{
                 email: 'joe@wusd.edu',
                 first_name: 'Joe',
                 last_name: 'Coolguy',
-                role_id: roles[0].id,
+                role_token: roles[1].role_token,
+                google_id: 'dkfhkj23h4',
                 created_at: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
-                refresh_token: 'ut7U8nv9f8Q7c6rDEiXP6QBV',
-                access_token: 'puXh9DfwASfYBcktKmSyfniL'
             }, {
                 email: 'bendover@wusd.edu',
-                role_id: roles[1].id,
+                role_token: roles[0].role_token,
                 first_name: 'Ben',
                 last_name: 'Dover',
+                google_id: 'dkfhkj23h4',
                 created_at: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
-                refresh_token: 'PRSzMuJTeuDcKU78cfatcgRe',
-                access_token: 'HEFYMKj3u5ZaGMjKDpALvXCz'
             }, {
-                email: 'sallygal@wusd.edu',
-                role_id: roles[0].id,
+                email: 'sallygal@toropark.edu',
+                role_token: roles[1].role_token,
                 first_name: 'Sally',
                 last_name: 'Othergal',
+                google_id: 'dkfhkj23h4',
                 created_at: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
-                refresh_token: 'JKDHFkjhfjdka847',
-                access_token: 'dakfjhdf3348AAdDJ'
             }], {});
     },
 

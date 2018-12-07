@@ -1,12 +1,13 @@
 const db = require('../../db/models/index');
+const authController = require('../controllers/AuthController');
 
 exports.announcement_pinned_get = function (req, res) {
-    db.User.count({where: {id: req.query.user_id}}).then(count => {
+    db.User.count({where: {id: req.query.google_id}}).then(count => {
         if (count === 0) {
             res.status(400);
             res.send('User not found');
         }
-        db.UserSchool.count({where: {user_id: req.query.user_id}}).then(count => {
+        db.UserSchool.count({where: {google_id: req.query.google_id}}).then(count => {
             if (count === 0) {
                 res.status(400);
                 res.send('No schools associated with that user');
@@ -17,7 +18,7 @@ exports.announcement_pinned_get = function (req, res) {
     });
 
     db.User.findAll({
-        where: {id: req.query.user_id},
+        where: {id: req.query.google_id},
         include: [
             {
                 model: db.School,
@@ -45,13 +46,13 @@ exports.announcement_pinned_get = function (req, res) {
 };
 
 exports.announcement_all_get = function (req, res) {
-    db.User.count({where: {id: req.query.user_id}}).then(count => {
+    db.User.count({where: {id: req.query.google_id}}).then(count => {
         if (count === 0) {
             res.status(400);
             res.send('User not found');
             res.end();
         }
-        db.UserSchool.count({where: {user_id: req.query.user_id}}).then(count => {
+        db.UserSchool.count({where: {google_id: req.query.google_id}}).then(count => {
             if (count === 0) {
                 res.status(400);
                 res.send('No schools associated with that user');
@@ -63,7 +64,7 @@ exports.announcement_all_get = function (req, res) {
     });
 
     db.User.findAll({
-        where: {id: req.query.user_id},
+        where: {id: req.query.google_id},
         include: [
             {
                 model: db.School,
@@ -88,16 +89,32 @@ exports.announcement_all_get = function (req, res) {
 };
 
 exports.announcement_create_post = function (req, res) {
-    db.Announcement.create({
-        message: req.body.message,
-        user_id: req.body.user_id,
-        school_id: req.body.school_id,
-        updated_at: null
-    }).then(announcement => {
-        res.status = 200;
-        res.send('Your announcement has successfully been created.');
+    console.log('called');
+    db.User.count({
+        where: {
+           google_id: req.body.google_id
+        }
+    }).then(count => {
+        console.log(count);
+        if (count === 0) {
+            res.status(400);
+            res.send("User not found.");
+        } else {
+            db.Announcement.create({
+                message: req.body.message,
+                google_id: req.body.google_id,
+                school_id: req.body.school_id,
+                updated_at: null
+            }).then(announcement => {
+                res.status(200);
+                res.send('Your announcement has successfully been created.');
+            }).catch(function (err) {
+                res.send('Something went wrong...' + err);
+            });
+        }
     }).catch(function (err) {
-        res.send('Something went wrong...' + err);
+        res.status(400);
+        res.send(err);
     });
 };
 
@@ -109,7 +126,7 @@ exports.announcement_update_post = function (req, res) {
     }).then(announcement => {
         announcement.update({
             message: req.body.message
-        }).catch(function(err) {
+        }).catch(function (err) {
             res.send('Something went wrong...' + err);
             res.status(400);
         });
@@ -127,7 +144,7 @@ exports.announcement_delete_post = function (req, res) {
         }
     }).then(data => {
         res.send('Successfully deleted announcement');
-    }).catch(function(err) {
+    }).catch(function (err) {
         res.status = 400;
         res.send('Something went wrong...' + err);
     });

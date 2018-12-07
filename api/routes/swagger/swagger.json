@@ -36,7 +36,7 @@
     "http"
   ],
   "paths": {
-    "/user/{user_id}": {
+    "/user/{email}": {
       "get": {
         "tags": [
           "user"
@@ -50,10 +50,56 @@
         "parameters": [
           {
             "in": "path",
-            "name": "user_id",
-            "type": "integer",
+            "name": "email",
+            "type": "string",
             "required": true,
-            "description": "A user's id."
+            "description": "A user's email address."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/role_token": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Return all role tokens for development",
+        "description": "",
+        "operationId": "user_token_all_get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/role/{role_token}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Return what type of user based on given role token",
+        "description": "",
+        "operationId": "user_token_get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "role_token",
+            "type": "string",
+            "required": true,
+            "description": "A role token provided by the user."
           }
         ],
         "responses": {
@@ -80,13 +126,6 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "user_id",
-            "type": "integer",
-            "required": true,
-            "description": "A user's id."
-          },
-          {
-            "in": "formData",
             "name": "first_name",
             "type": "string",
             "required": true,
@@ -108,24 +147,17 @@
           },
           {
             "in": "formData",
-            "name": "refresh_token",
+            "name": "role_token",
             "type": "string",
             "required": true,
-            "description": "A user refresh_token for google."
+            "description": "A user role token."
           },
           {
             "in": "formData",
-            "name": "access_token",
-            "type": "string",
-            "required": true,
-            "description": "A user access token for google apis."
-          },
-          {
-            "in": "formData",
-            "name": "role_id",
+            "name": "school_id",
             "type": "integer",
             "required": true,
-            "description": "Update user role (may need to deprecate)."
+            "description": "School id of the student."
           }
         ],
         "responses": {
@@ -151,13 +183,6 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "user_id",
-            "type": "integer",
-            "required": true,
-            "description": "A user's id."
-          },
-          {
-            "in": "formData",
             "name": "first_name",
             "type": "string",
             "required": false,
@@ -179,14 +204,7 @@
           },
           {
             "in": "formData",
-            "name": "refresh_token",
-            "type": "string",
-            "required": false,
-            "description": "A user refresh_token account."
-          },
-          {
-            "in": "formData",
-            "name": "role_id",
+            "name": "role_token",
             "type": "integer",
             "required": false,
             "description": "Update user role (may need to deprecate)."
@@ -216,10 +234,10 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "user_id",
-            "type": "integer",
+            "name": "email",
+            "type": "string",
             "required": true,
-            "description": "A user's id."
+            "description": "A user's email."
           }
         ],
         "responses": {
@@ -243,10 +261,10 @@
         "parameters": [
           {
             "in": "query",
-            "name": "user_id",
-            "type": "integer",
+            "name": "email",
+            "type": "string",
             "required": true,
-            "description": "The user id that you want announcements for."
+            "description": "The email of a user that you want announcements for."
           }
         ],
         "responses": {
@@ -270,8 +288,8 @@
         "parameters": [
           {
             "in": "query",
-            "name": "user_id",
-            "type": "integer",
+            "name": "google_id",
+            "type": "string",
             "required": true,
             "description": "The user id that you want announcements for."
           }
@@ -300,14 +318,14 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "user_id",
-            "type": "integer",
+            "name": "email",
+            "type": "string",
             "required": true,
-            "description": "A user's id."
+            "description": "A user's email."
           },
           {
             "in": "formData",
-            "name": "first_name",
+            "name": "school_id",
             "type": "integer",
             "required": true,
             "description": "School id that the announcement is coming from."
@@ -458,7 +476,7 @@
         }
       }
     },
-    "/school/{user_id}": {
+    "/school/{email}": {
       "get": {
         "tags": [
           "school"
@@ -620,7 +638,7 @@
           },
           {
             "in": "formData",
-            "name": "user_id",
+            "name": "google_id",
             "type": "string",
             "required": true
           }
@@ -652,7 +670,7 @@
         "refresh_token": {
           "type": "string"
         },
-        "role_id": {
+        "role_token": {
           "type": "integer"
         }
       }
@@ -660,8 +678,8 @@
     "Announcement": {
       "type": "object",
       "properties": {
-        "user_id": {
-          "type": "integer"
+        "google_id": {
+          "type": "string"
         },
         "school_id": {
           "type": "integer"
@@ -680,8 +698,8 @@
         "school_id": {
           "type": "integer"
         },
-        "user_id": {
-          "type": "integer"
+        "google_id": {
+          "type": "string"
         }
       }
     },

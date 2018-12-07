@@ -15,22 +15,11 @@ module.exports = {
                 type: Sequelize.STRING
             },
             email: {
-                type: Sequelize.STRING
-            },
-            role_id: {
-                type: Sequelize.INTEGER,
-                references: {
-                    model: 'Roles',
-                    key: 'id'
-                }
-            },
-            refresh_token: {
                 type: Sequelize.STRING,
-                allowNull: false
+                unique: true
             },
-            access_token: {
+            role_token: {
                 type: Sequelize.STRING,
-                allowNull: false
             },
             created_at: {
                 allowNull: false,
