@@ -524,7 +524,7 @@
         ],
         "summary": "Return all schools",
         "description": "",
-        "operationId": "school_create_post",
+        "operationId": "school_get",
         "produces": [
           "application/json"
         ],

@@ -79,7 +79,7 @@ router.post('/announcement/unpin', [isAdmin(), validate(announcementValidation.p
 
 router.get('/school', schoolController.school_create_post);
 
-router.get('/school/all', schoolController.school_create_post);
+router.get('/school/all', schoolController.school_get);
 
 router.post('/school/create', validate(schoolValidation.create), schoolController.school_create_post);
 
