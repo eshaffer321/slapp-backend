@@ -17,8 +17,13 @@ module.exports = {
             school_name: {
                 type: Sequelize.STRING
             },
-            token: {
-                type: Sequelize.STRING
+            admin_token: {
+                type: Sequelize.STRING,
+                unique: true
+            },
+            user_token: {
+                type: Sequelize.STRING,
+                unique: true
             },
             created_at: {
                 allowNull: false,

@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
         hostname: DataTypes.STRING,
         district: DataTypes.STRING,
         school_name: DataTypes.STRING,
-        token: DataTypes.STRING,
+        admin_token: DataTypes.STRING,
+        user_token: DataTypes.STRING
     }, {
         timestamps: true,
         underscored: true,

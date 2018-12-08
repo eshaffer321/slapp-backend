@@ -14,8 +14,7 @@ user.create = {
         first_name: Joi.string().required(),
         last_name: Joi.string().required(),
         email: Joi.string().email().required(),
-        school_id: Joi.number().required(),
-        role_token: Joi.string().required(),
+        token: Joi.string().required(),
     }
 };
 
@@ -24,19 +23,13 @@ user.update = {
         first_name: Joi.string(),
         last_name: Joi.string(),
         email: Joi.string().email().required(),
-        role_token: Joi.string(),
+        token: Joi.string(),
     }
 };
 
 user.delete = {
     body: {
         email: Joi.string().email().required(),
-    }
-};
-
-user.token = {
-    body: {
-        email: Joi.string().email().required()
     }
 };
 

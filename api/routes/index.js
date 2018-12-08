@@ -23,27 +23,14 @@ function isAdmin() {
         db.User.findOne({
             where: {
                 email: req.body.email
-            }
+            },
+            attributes: ['id']
         }).then(user => {
-            db.Role.findOne({
-                where: {
-                    role: 'admin'
-                },
-                attributes: ['role_token']
-            }).then(role => {
-                if (user.role_token !== role.role_token) {
-                    res.status(400);
-                    res.send("You don't have permission for that.");
-                } else {
-                    next();
-                }
 
-            }).catch(function (err) {
-                res.send(err);
-            })
         }).catch(function (err) {
+            res.status(400);
             res.send(err);
-        });
+        })
     }
 }
 
@@ -51,9 +38,13 @@ router.use('/', swaggerUi.serve);
 
 router.get('/', swaggerUi.setup(swaggerDocument));
 
-router.get('/user/role_token', userController.user_token_all_get);
+// router.get('/user/role_token', userController.user_token_all_get);
 
-router.get('/user/:email', userController.user_get);
+// what is the school and what kind of user is it
+router.get('/user/:token', userController.user_school_token_get);
+
+// school id's and role id
+// router.get('/user/:email', userController.user_get);
 
 router.get('/user/role/:role_token', userController.user_token_get);
 

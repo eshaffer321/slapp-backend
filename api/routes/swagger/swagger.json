@@ -36,12 +36,39 @@
     "http"
   ],
   "paths": {
+    "/user/{token}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Return what school_id and auth type for given token.",
+        "description": "",
+        "operationId": "user_school_token_get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "type": "string",
+            "required": true,
+            "description": "A role token given from a school."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/user/{email}": {
       "get": {
         "tags": [
           "user"
         ],
-        "summary": "Return data about user",
+        "summary": "If user exists: return the school id and user type.",
         "description": "",
         "operationId": "user_get",
         "produces": [
@@ -147,17 +174,10 @@
           },
           {
             "in": "formData",
-            "name": "role_token",
+            "name": "token",
             "type": "string",
             "required": true,
             "description": "A user role token."
-          },
-          {
-            "in": "formData",
-            "name": "school_id",
-            "type": "integer",
-            "required": true,
-            "description": "School id of the student."
           }
         ],
         "responses": {
