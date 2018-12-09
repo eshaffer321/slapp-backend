@@ -4,7 +4,7 @@ exports.user_get = function (req, res) {
     console.log(req.params);
     db.User.findOne({
         where: {email: req.params.email},
-        attributes: ['first_name', 'last_name', 'email', 'id'],
+        attributes: ['first_name', 'last_name', 'email', 'id', 'image_url'],
         include: [{
             model: db.School,
             attributes: ['school_name', 'district', 'calendar_id']

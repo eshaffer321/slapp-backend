@@ -21,10 +21,13 @@ exports.announcement_pinned_get = function (req, res) {
                                 through: {attributes: []},
                                 include: [{
                                     model: db.Announcement,
-                                    attributes: ['message', 'id'],
+                                    attributes: ['message', 'id', 'created_at', 'updated_at'],
                                     where: {
                                         pinned: true,
                                     },
+                                    order: [
+                                        ['created_at', 'ASC'],
+                                    ],
                                     include: [{
                                         model: db.User,
                                         attributes: ['first_name', 'last_name', 'image_url']
@@ -66,9 +69,13 @@ exports.announcement_all_get = function (req, res) {
                             model: db.School,
                             attributes: ['school_name'],
                             through: {attributes: []},
+                            order: [
+                                [{ model: db.Announcement }, 'id', 'ASC']
+                            ],
                             include: [{
                                 model: db.Announcement,
-                                attributes: ['message', 'id'],
+                                attributes: ['message', 'id', 'updated_at', 'created_at'],
+
                                 include: [{
                                     model: db.User,
                                     attributes: ['first_name', 'last_name', 'image_url']
@@ -76,8 +83,12 @@ exports.announcement_all_get = function (req, res) {
                             }]
                         },
                     ],
+                    order: [
+                        [db.School, { model: db.Announcement }, 'created_at', 'DESC']
+                    ],
                     attributes: ['first_name', 'last_name'],
                 }).then(data => {
+                    console.log(data[0].Schools);
                     res.status(200);
                     res.send(data[0]);
                 }).catch(function (err) {
