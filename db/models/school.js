@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
         district: DataTypes.STRING,
         school_name: DataTypes.STRING,
         admin_token: DataTypes.STRING,
-        user_token: DataTypes.STRING
+        user_token: DataTypes.STRING,
+        calendar_id: DataTypes.STRING
     }, {
         timestamps: true,
         underscored: true,

@@ -21,6 +21,10 @@ module.exports = {
                 type: Sequelize.STRING,
                 unique: true
             },
+            calendar_id: {
+                type: Sequelize.STRING,
+                unique: true
+            },
             user_token: {
                 type: Sequelize.STRING,
                 unique: true

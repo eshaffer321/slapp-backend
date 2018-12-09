@@ -38,15 +38,9 @@ router.use('/', swaggerUi.serve);
 
 router.get('/', swaggerUi.setup(swaggerDocument));
 
-// router.get('/user/role_token', userController.user_token_all_get);
-
-// what is the school and what kind of user is it
 router.get('/user/:token', userController.user_school_token_get);
 
-// school id's and role id
-// router.get('/user/:email', userController.user_get);
-
-router.get('/user/role/:role_token', userController.user_token_get);
+router.get('/user/find/:email', userController.user_get);
 
 router.post('/user/create', validate(userValidation.create), userController.user_create_post);
 

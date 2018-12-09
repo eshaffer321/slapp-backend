@@ -4,67 +4,16 @@ exports.user_get = function (req, res) {
     console.log(req.params);
     db.User.findOne({
         where: {email: req.params.email},
-        attributes: ['first_name', 'last_name', 'email', 'id']
+        attributes: ['first_name', 'last_name', 'email', 'id'],
+        include: [{
+            model: db.School,
+            attributes: ['school_name', 'district', 'calendar_id']
+        }]
     }).then(user => {
-        db.UserSchool.findAll({
-            where: {
-                user_id: user.id
-            },
-            attributes: ['role', 'school_id'],
-            // includes: [{
-            //     model: db.School,
-            //     attributes: ['school_name', 'district']
-            // }]
-        }).then(userschool => {
-            res.send(userschool);
-        }).catch(function (err) {
-            res.status(400);
-            res.send(err);
-        })
+        res.send(user);
     }).catch(function (err) {
         res.status(400);
         res.send('Something went wrong... ' + err);
-    });
-};
-
-exports.user_token_all_get = function (req, res) {
-    db.Role.findAll({}).then(role => {
-        res.send(role);
-    }).catch(function (err) {
-        res.status(400);
-        res.send('Something went wrong... ' + err);
-    });
-};
-
-exports.user_token_get = function (req, res) {
-    db.School.findOne({
-        where: {}
-    }).then(school => {
-
-    }).catch(function (err) {
-
-    });
-
-
-    db.Role.count({
-        where: {role_token: req.params.role_token},
-    }).then(count => {
-        if (count > 0) {
-            db.Role.findOne({
-                where: {role_token: req.params.role_token},
-                attributes: ['role']
-            }).then(role => {
-                res.send(role);
-            }).catch(function (err) {
-                res.status(400);
-                res.send('Something went wrong... ' + err);
-            });
-        } else {
-            res.status(400);
-            res.send('Couldn\'t find role token');
-        }
-    }).catch(function (err) {
-        res.send(err);
     });
 };
 
@@ -89,7 +38,6 @@ exports.user_school_token_get = function (req, res) {
                         school_id: school.id
                     }))
                 } else {
-                    console.log("else");
                     res.status(400);
                     res.json({status: 400, message: 'Could not find a school associated with that token'})
                 }
@@ -123,9 +71,7 @@ exports.user_create_post = function (req, res) {
                         admin_token: req.body.token
                     }
                 }).then(data => {
-                    console.log('USERSCHOOL CALLED');
                     if (data) {
-                        console.log('admin token found');
                         db.UserSchool.create({
                             user_id: user.id,
                             school_id: req.body.school_id,
@@ -138,7 +84,6 @@ exports.user_create_post = function (req, res) {
                             res.send("Error creating user school relation");
                         })
                     } else {
-                        console.log('admin token NOT found');
                         db.UserSchool.create({
                             user_id: user.id,
                             school_id: req.body.school_id,
@@ -176,7 +121,6 @@ exports.user_update_post = function (req, res) {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,
-            role_token: req.body.role_token
         }).catch(function (err) {
             res.status(400);
             res.send('Something went wrong...' + err);

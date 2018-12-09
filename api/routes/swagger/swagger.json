@@ -63,12 +63,12 @@
         }
       }
     },
-    "/user/{email}": {
+    "/user/find/{email}": {
       "get": {
         "tags": [
           "user"
         ],
-        "summary": "If user exists: return the school id and user type.",
+        "summary": "If user exists: return the school id, calendar id and user type.",
         "description": "",
         "operationId": "user_get",
         "produces": [
@@ -81,52 +81,6 @@
             "type": "string",
             "required": true,
             "description": "A user's email address."
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/role_token": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Return all role tokens for development",
-        "description": "",
-        "operationId": "user_token_all_get",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/role/{role_token}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Return what type of user based on given role token",
-        "description": "",
-        "operationId": "user_token_get",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "role_token",
-            "type": "string",
-            "required": true,
-            "description": "A role token provided by the user."
           }
         ],
         "responses": {
