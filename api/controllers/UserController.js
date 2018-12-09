@@ -64,7 +64,8 @@ exports.user_create_post = function (req, res) {
             db.User.create({
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
-                email: req.body.email
+                email: req.body.email,
+                image_url: req.body.image_url
             }).then(user => {
                 db.School.findOne({
                     where: {

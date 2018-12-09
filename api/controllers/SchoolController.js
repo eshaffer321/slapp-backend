@@ -16,10 +16,8 @@ exports.school_create_post = function(req, res) {
 
 exports.school_get = function(req, res) {
     db.School.findAll({}).then(school => {
-        console.log('here');
         res.json(school);
     }).catch(function (err) {
-        console.log('here');
         res.status(400);
         res.json(err);
     })

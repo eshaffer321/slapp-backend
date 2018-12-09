@@ -132,6 +132,13 @@
             "type": "string",
             "required": true,
             "description": "A user role token."
+          },
+          {
+            "in": "formData",
+            "name": "image_url",
+            "type": "string",
+            "required": true,
+            "description": "A user image url to display photo."
           }
         ],
         "responses": {
@@ -265,7 +272,7 @@
             "name": "email",
             "type": "string",
             "required": true,
-            "description": "The user id that you want announcements for."
+            "description": "The email that you want announcements for."
           }
         ],
         "responses": {

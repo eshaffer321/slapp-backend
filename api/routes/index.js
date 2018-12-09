@@ -26,7 +26,22 @@ function isAdmin() {
             },
             attributes: ['id']
         }).then(user => {
-
+            db.UserSchool.findOne({
+                where: {
+                    user_id: user.id,
+                    school_id: req.body.school_id
+                },
+                attributes: ['role']
+            }).then(userschool => {
+                if (userschool.role !== 'admin') {
+                    res.status(401);
+                    res.send('Unauthorized request');
+                }
+                next()
+            }).catch(function (err) {
+                res.status(400);
+                res.send(err);
+            })
         }).catch(function (err) {
             res.status(400);
             res.send(err);

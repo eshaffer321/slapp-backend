@@ -15,6 +15,7 @@ user.create = {
         last_name: Joi.string().required(),
         email: Joi.string().email().required(),
         token: Joi.string().required(),
+        image_url: Joi.string().required(),
     }
 };
 

@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         updatedAt: 'updated_at',
         createdAt: 'created_at',
     });
-    Announcement.associate = function (models) {};
+    Announcement.associate = function (models) {
+        Announcement.belongsTo(models.User);
+    };
     return Announcement;
 };

@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         updatedAt: 'updated_at',
         createdAt: 'created_at'
     });
-    School.associate = function (models) {};
+    School.associate = function (models) {
+        School.hasMany(models.Announcement);
+    };
     return School;
 };
