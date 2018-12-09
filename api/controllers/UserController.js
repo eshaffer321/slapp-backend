@@ -74,7 +74,7 @@ exports.user_create_post = function (req, res) {
                     if (data) {
                         db.UserSchool.create({
                             user_id: user.id,
-                            school_id: req.body.school_id,
+                            school_id: data.id,
                             role: 'admin'
                         }).then(userschool => {
                             res.status(200);
@@ -84,17 +84,31 @@ exports.user_create_post = function (req, res) {
                             res.send("Error creating user school relation");
                         })
                     } else {
-                        db.UserSchool.create({
-                            user_id: user.id,
-                            school_id: req.body.school_id,
-                            role: 'user'
-                        }).then(userschool => {
-                            res.status(200);
-                            res.end();
+                        db.School.findOne({
+                            where: {
+                                user_token: req.body.token
+                            }
+                        }).then(school => {
+                            if (school) {
+                                db.UserSchool.create({
+                                    user_id: user.id,
+                                    school_id: school.id,
+                                    role: 'user'
+                                }).then(data => {
+                                    res.status(200);
+                                    res.send('Success');
+                                }).catch(function (err) {
+                                    res.send(err);
+                                    res.status(400);
+                                });
+                            } else {
+                                res.status(400);
+                                res.send('Could not find a school associated with token: ' + req.body.token);
+                            }
+
                         }).catch(function (err) {
-                            res.status(400);
-                            res.send("Error creating user school relation");
-                        })
+                            res.send(err);
+                        });
                     }
                 }).catch(function (err) {
 
