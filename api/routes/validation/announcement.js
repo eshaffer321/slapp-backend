@@ -7,14 +7,15 @@ announcement.create = {
     body: {
         message: Joi.string().required(),
         school_id: Joi.number().required(),
-        user_id: Joi.number().required(),
+        email: Joi.string().required(),
+        pinned: Joi.boolean().required(),
     }
 };
 
 announcement.update = {
     body: {
         announcement_id: Joi.number().required(),
-        user_id: Joi.number().required(),
+        email: Joi.string().required(),
         message: Joi.string().required()
     }
 };
@@ -22,13 +23,13 @@ announcement.update = {
 announcement.delete = {
     body: {
         announcement_id: Joi.number().required(),
-        user_id: Joi.number().required(),
+        email: Joi.string().required(),
     }
 };
 
 announcement.latest = {
     body: {
-        user_id: Joi.number().required(),
+        email: Joi.string().required(),
     }
 };
 

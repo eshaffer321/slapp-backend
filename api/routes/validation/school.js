@@ -7,7 +7,9 @@ schools.create = {
         school_name: Joi.string().required(),
         district: Joi.string().required(),
         hostname: Joi.string().required(),
-        token: Joi.string().required()
+        token: Joi.string().required(),
+        admin_token: Joi.string().required(),
+        user_token: Joi.string().required()
     }
 };
 

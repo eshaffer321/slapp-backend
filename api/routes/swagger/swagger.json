@@ -36,12 +36,39 @@
     "http"
   ],
   "paths": {
-    "/user/{user_id}": {
+    "/user/{token}": {
       "get": {
         "tags": [
           "user"
         ],
-        "summary": "Return data about user",
+        "summary": "Return what school_id and auth type for given token.",
+        "description": "",
+        "operationId": "user_school_token_get",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "type": "string",
+            "required": true,
+            "description": "A role token given from a school."
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/find/{email}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "If user exists: return the school id, calendar id and user type.",
         "description": "",
         "operationId": "user_get",
         "produces": [
@@ -50,10 +77,10 @@
         "parameters": [
           {
             "in": "path",
-            "name": "user_id",
-            "type": "integer",
+            "name": "email",
+            "type": "string",
             "required": true,
-            "description": "A user's id."
+            "description": "A user's email address."
           }
         ],
         "responses": {
@@ -80,13 +107,6 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "user_id",
-            "type": "integer",
-            "required": true,
-            "description": "A user's id."
-          },
-          {
-            "in": "formData",
             "name": "first_name",
             "type": "string",
             "required": true,
@@ -108,24 +128,17 @@
           },
           {
             "in": "formData",
-            "name": "refresh_token",
+            "name": "token",
             "type": "string",
             "required": true,
-            "description": "A user refresh_token for google."
+            "description": "A user role token."
           },
           {
             "in": "formData",
-            "name": "access_token",
+            "name": "image_url",
             "type": "string",
             "required": true,
-            "description": "A user access token for google apis."
-          },
-          {
-            "in": "formData",
-            "name": "role_id",
-            "type": "integer",
-            "required": true,
-            "description": "Update user role (may need to deprecate)."
+            "description": "A user image url to display photo."
           }
         ],
         "responses": {
@@ -151,13 +164,6 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "user_id",
-            "type": "integer",
-            "required": true,
-            "description": "A user's id."
-          },
-          {
-            "in": "formData",
             "name": "first_name",
             "type": "string",
             "required": false,
@@ -179,14 +185,7 @@
           },
           {
             "in": "formData",
-            "name": "refresh_token",
-            "type": "string",
-            "required": false,
-            "description": "A user refresh_token account."
-          },
-          {
-            "in": "formData",
-            "name": "role_id",
+            "name": "role_token",
             "type": "integer",
             "required": false,
             "description": "Update user role (may need to deprecate)."
@@ -216,10 +215,10 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "user_id",
-            "type": "integer",
+            "name": "email",
+            "type": "string",
             "required": true,
-            "description": "A user's id."
+            "description": "A user's email."
           }
         ],
         "responses": {
@@ -243,10 +242,10 @@
         "parameters": [
           {
             "in": "query",
-            "name": "user_id",
-            "type": "integer",
+            "name": "email",
+            "type": "string",
             "required": true,
-            "description": "The user id that you want announcements for."
+            "description": "The email of a user that you want announcements for."
           }
         ],
         "responses": {
@@ -270,10 +269,10 @@
         "parameters": [
           {
             "in": "query",
-            "name": "user_id",
-            "type": "integer",
+            "name": "email",
+            "type": "string",
             "required": true,
-            "description": "The user id that you want announcements for."
+            "description": "The email that you want announcements for."
           }
         ],
         "responses": {
@@ -300,14 +299,14 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "user_id",
-            "type": "integer",
+            "name": "email",
+            "type": "string",
             "required": true,
-            "description": "A user's id."
+            "description": "A user's email."
           },
           {
             "in": "formData",
-            "name": "first_name",
+            "name": "school_id",
             "type": "integer",
             "required": true,
             "description": "School id that the announcement is coming from."
@@ -318,6 +317,13 @@
             "type": "string",
             "required": true,
             "description": "The text of the message."
+          },
+          {
+            "in": "formData",
+            "name": "pinned",
+            "type": "boolean",
+            "required": true,
+            "description": "The status of the message."
           }
         ],
         "responses": {
@@ -458,7 +464,7 @@
         }
       }
     },
-    "/school/{user_id}": {
+    "/school/{email}": {
       "get": {
         "tags": [
           "school"
@@ -506,7 +512,7 @@
         ],
         "summary": "Return all schools",
         "description": "",
-        "operationId": "school_create_post",
+        "operationId": "school_get",
         "produces": [
           "application/json"
         ],
@@ -620,7 +626,7 @@
           },
           {
             "in": "formData",
-            "name": "user_id",
+            "name": "email",
             "type": "string",
             "required": true
           }
@@ -652,7 +658,7 @@
         "refresh_token": {
           "type": "string"
         },
-        "role_id": {
+        "role_token": {
           "type": "integer"
         }
       }
@@ -660,8 +666,8 @@
     "Announcement": {
       "type": "object",
       "properties": {
-        "user_id": {
-          "type": "integer"
+        "email": {
+          "type": "string"
         },
         "school_id": {
           "type": "integer"
@@ -680,8 +686,8 @@
         "school_id": {
           "type": "integer"
         },
-        "user_id": {
-          "type": "integer"
+        "email": {
+          "type": "string"
         }
       }
     },

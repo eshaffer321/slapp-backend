@@ -4,8 +4,7 @@ module.exports = (sequelize, DataTypes) => {
         first_name: DataTypes.STRING,
         last_name: DataTypes.STRING,
         email: DataTypes.STRING,
-        access_token: DataTypes.STRING,
-        refresh_token: DataTypes.STRING,
+        image_url: DataTypes.STRING
     }, {
         timestamps: true,
         underscored: true,
@@ -13,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
         createdAt: 'created_at',
     });
     User.associate = function (models) {
-        User.belongsTo(models.Role);
     };
     return User;
 };

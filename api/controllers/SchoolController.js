@@ -14,6 +14,15 @@ exports.school_create_post = function(req, res) {
     })
 };
 
+exports.school_get = function(req, res) {
+    db.School.findAll({}).then(school => {
+        res.json(school);
+    }).catch(function (err) {
+        res.status(400);
+        res.json(err);
+    })
+};
+
 exports.school_update_post = function(req, res) {
     db.School.findOne({
         where: {

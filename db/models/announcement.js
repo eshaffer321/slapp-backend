@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
     });
     Announcement.associate = function (models) {
         Announcement.belongsTo(models.User);
-        Announcement.hasOne(models.School);
     };
     return Announcement;
 };
