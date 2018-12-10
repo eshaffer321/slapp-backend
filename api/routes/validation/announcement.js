@@ -8,6 +8,7 @@ announcement.create = {
         message: Joi.string().required(),
         school_id: Joi.number().required(),
         email: Joi.string().required(),
+        pinned: Joi.boolean().required(),
     }
 };
 

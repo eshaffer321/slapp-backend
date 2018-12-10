@@ -317,6 +317,13 @@
             "type": "string",
             "required": true,
             "description": "The text of the message."
+          },
+          {
+            "in": "formData",
+            "name": "pinned",
+            "type": "boolean",
+            "required": true,
+            "description": "The status of the message."
           }
         ],
         "responses": {

@@ -6,45 +6,49 @@ exports.announcement_pinned_get = function (req, res) {
         if (!user) {
             res.status(400);
             res.send('User not found');
-        } else {
-            db.UserSchool.count({where: {id: user.id}}).then(count => {
-                if (count === 0) {
-                    res.status(400);
-                    res.send('No schools associated with that user');
-                } else {
-                    db.User.findAll({
-                        where: {id: req.query.email},
-                        include: [
-                            {
-                                model: db.School,
-                                attributes: ['school_name'],
-                                through: {attributes: []},
-                                include: [{
-                                    model: db.Announcement,
-                                    attributes: ['message', 'id', 'created_at', 'updated_at'],
-                                    where: {
-                                        pinned: true,
-                                    },
-                                    order: [
-                                        ['created_at', 'ASC'],
-                                    ],
-                                    include: [{
-                                        model: db.User,
-                                        attributes: ['first_name', 'last_name', 'image_url']
-                                    }]
-                                }]
-                            },
-                        ],
-                        attributes: ['first_name', 'last_name'],
-                    }).then(data => {
-                        res.send(data[0]);
-                    }).catch(function (err) {
-                        res.send('Something went wrong...' + err);
-                    });
-                }
-            });
         }
-
+        db.UserSchool.count({where: {user_id: user.id}}).then(userschool => {
+            if (!userschool) {
+                res.status(400);
+                res.send('No schools associated with that user');
+                res.end();
+            } else {
+                db.User.findAll({
+                    where: {email: req.query.email},
+                    include: [
+                        {
+                            model: db.School,
+                            attributes: ['school_name'],
+                            through: {attributes: []},
+                            order: [
+                                [{ model: db.Announcement }, 'id', 'ASC']
+                            ],
+                            include: [{
+                                model: db.Announcement,
+                                attributes: ['message', 'id', 'updated_at', 'created_at', 'pinned'],
+                                where: {
+                                    pinned: true
+                                },
+                                include: [{
+                                    model: db.User,
+                                    attributes: ['first_name', 'last_name', 'image_url']
+                                }]
+                            }]
+                        },
+                    ],
+                    order: [
+                        [db.School, { model: db.Announcement }, 'created_at', 'DESC']
+                    ],
+                    attributes: ['first_name', 'last_name'],
+                }).then(data => {
+                    console.log(data[0].Schools);
+                    res.status(200);
+                    res.send(data[0]);
+                }).catch(function (err) {
+                    res.send('Something went wrong...' + err);
+                });
+            }
+        });
     }).catch(function (err) {
         res.send('Something went wrong...' + err);
     });
@@ -74,7 +78,7 @@ exports.announcement_all_get = function (req, res) {
                             ],
                             include: [{
                                 model: db.Announcement,
-                                attributes: ['message', 'id', 'updated_at', 'created_at'],
+                                attributes: ['message', 'id', 'updated_at', 'created_at', 'pinned'],
 
                                 include: [{
                                     model: db.User,
@@ -106,7 +110,6 @@ exports.announcement_create_post = function (req, res) {
     db.User.findOne({
         where: {
             email: req.body.email,
-
         },
         attributes: ['id']
     }).then(user => {
@@ -118,6 +121,7 @@ exports.announcement_create_post = function (req, res) {
                 message: req.body.message,
                 user_id: user.id,
                 school_id: req.body.school_id,
+                pinned: req.body.pinned,
                 updated_at: null
             }).then(announcement => {
                 res.status(200);
