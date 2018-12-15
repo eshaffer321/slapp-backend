@@ -29,15 +29,15 @@ function isAdmin() {
             db.UserSchool.findOne({
                 where: {
                     user_id: user.id,
-                    school_id: req.body.school_id
                 },
                 attributes: ['role']
             }).then(userschool => {
                 if (userschool.role !== 'admin') {
                     res.status(401);
                     res.send('Unauthorized request');
+                } else {
+                    next();
                 }
-                next()
             }).catch(function (err) {
                 res.status(400);
                 res.send(err);
@@ -75,7 +75,7 @@ router.post('/announcement/delete', [isAdmin(), validate(announcementValidation.
 
 router.post('/announcement/pin', [isAdmin(), validate(announcementValidation.pinned)],  announcementController.announcement_pin_post);
 
-router.post('/announcement/unpin', [isAdmin(), validate(announcementValidation.pinned)],  announcementController.announcement_pin_post);
+router.post('/announcement/unpin', [isAdmin(), validate(announcementValidation.pinned)],  announcementController.announcement_unpin_post);
 
 router.get('/school', schoolController.school_create_post);
 

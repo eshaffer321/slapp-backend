@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         underscored: true,
         updatedAt: 'updated_at',
         createdAt: 'created_at',
+        charset: 'utf8mb4'
     });
     Announcement.associate = function (models) {
         Announcement.belongsTo(models.User);

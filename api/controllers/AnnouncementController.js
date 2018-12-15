@@ -174,14 +174,21 @@ exports.announcement_pin_post = function (req, res) {
             id: req.body.announcement_id,
         }
     }).then(announcement => {
-        announcement.update({
-            pinned: true
-        }).then(data => {
-            res.send(data);
-        }).catch(function (err) {
+        if (announcement) {
+            announcement.update({
+                pinned: true
+            }).then(data => {
+                res.status(200);
+                res.send('Successfully pinned post: ' + req.body.announcement_id);
+            }).catch(function (err) {
+                res.status(400);
+                res.send(err);
+            })
+        } else {
             res.status(400);
-            res.send(err);
-        })
+            res.send('Could not find announcement for given id ' + req.body.announcement_id);
+        }
+
     }).catch(function (err) {
         res.status(400);
         res.send(err);
@@ -189,19 +196,26 @@ exports.announcement_pin_post = function (req, res) {
 };
 
 exports.announcement_unpin_post = function (req, res) {
-    db.Announcement.findAll({
+    db.Announcement.findOne({
         where: {
             id: req.body.announcement_id,
         }
     }).then(announcement => {
-        announcement.update({
-            pinned: false
-        }).then(data => {
-            res.send(data);
-        }).catch(function (err) {
+        if (announcement) {
+            announcement.update({
+                pinned: false
+            }).then(data => {
+                res.status(200);
+                res.send('Successfully unpinned post: ' + req.body.announcement_id);
+            }).catch(function (err) {
+                res.status(400);
+                res.send(err);
+            })
+        } else {
             res.status(400);
-            res.send(err);
-        })
+            res.send('Could not find announcement for given id ' + req.body.announcement_id);
+        }
+
     }).catch(function (err) {
         res.status(400);
         res.send(err);

@@ -19,13 +19,22 @@ module.exports = {
         define: {
             underscored: true
         },
+        dialectOptions: {
+            charset: 'utf8mb4'
+        },
     },
     testing: {
         use_env_variable: 'CLEARDB_DATABASE_URL',
         dialect: 'mysql',
+        dialectOptions: {
+            charset: 'utf8mb4'
+        },
     },
     production: {
         use_env_variable: 'CLEARDB_DATABASE_URL',
         dialect: 'mysql',
+        dialectOptions: {
+            charset: 'utf8mb4'
+        },
     },
 };

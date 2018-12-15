@@ -108,11 +108,13 @@ exports.user_create_post = function (req, res) {
                             }
 
                         }).catch(function (err) {
+                            res.status(400);
                             res.send(err);
                         });
                     }
                 }).catch(function (err) {
-
+                    res.status(400);
+                    res.send(err);
                 });
 
             }).catch(function (err) {
@@ -121,6 +123,7 @@ exports.user_create_post = function (req, res) {
             });
         }
     }).catch(function (err) {
+        res.status(400);
         res.send(err);
     });
 };
@@ -136,6 +139,8 @@ exports.user_update_post = function (req, res) {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,
+            image_url: req.body.image_url
+
         }).catch(function (err) {
             res.status(400);
             res.send('Something went wrong...' + err);
@@ -148,12 +153,27 @@ exports.user_update_post = function (req, res) {
 };
 
 exports.user_delete_post = function (req, res) {
-    db.User.destroy({
-        where: {email: req.body.email}
+    console.log('here');
+    db.User.findOne({where: {email: req.body.email},
+        attributes: ['id']
     }).then(user => {
-        res.send('Successfully deleted user.');
+        db.Announcement.destroy({where: { user_id: user.id }}).then(ann => {
+            db.UserSchool.destroy({where: {user_id: user.id}}).then(userschool => {
+                db.User.destroy({where: {id: user.id}}).then(user => {
+                    res.status(200);
+                    res.end();
+                })
+            }).catch(function (err) {
+                res.status(400);
+                res.send(err);
+            })
+        }).catch(function (err) {
+            res.status(400);
+            res.send(err);
+        })
     }).catch(function (err) {
         res.status(400);
-        res.send('Something went wrong... ' + err);
+        res.send(err);
     });
+
 };

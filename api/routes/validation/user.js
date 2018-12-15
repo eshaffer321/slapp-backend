@@ -24,7 +24,7 @@ user.update = {
         first_name: Joi.string(),
         last_name: Joi.string(),
         email: Joi.string().email().required(),
-        token: Joi.string(),
+        image_url: Joi.string(),
     }
 };
 
